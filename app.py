@@ -4,7 +4,7 @@ import os
 
 menu = {
         'Nourriture': {
-            'Pizza': 10.00,
+            'Pizza (10€)': 10.00,
             'Burger': 8.00,
             'Sandwich': 6.00,
             'Salade': 7.00,
@@ -75,13 +75,14 @@ def restaurant_ordering_system():
 
     elif st.session_state.page == 1:
         st.write('# 🏷️ **Menu:**')
+        st.write('Merci de choisir votre **commande** puis de choisir la **quantité**.')
 
         col1, col2, col3 = st.columns(3)
 
         with col1:
             st.markdown("---")
             st.markdown('### 😋 Nourriture')
-            food_order = st.multiselect('Sélectionner les plats:', list(menu['Nourriture'].keys()), key='food_select')
+            food_order = st.multiselect('Sélectionner la nourriture:', list(menu['Nourriture'].keys()), key='food_select')
             st.session_state.order['Nourriture'] = {item: st.number_input(f'Quantité pour {item}:', min_value=1, max_value=10, value=1, key=f'food_{item}') for item in food_order}
 
         with col2:
@@ -109,6 +110,7 @@ def restaurant_ordering_system():
     elif st.session_state.page == 2:
         total = 0.0
         st.write('# 🧺 **Récapitulatif de la commande:**')
+        st.write('Vérifier votre **commande** et la **quantité** de chaque.')
         for category, items in st.session_state.order.items():
             if items:
                 for item, qty in items.items():
